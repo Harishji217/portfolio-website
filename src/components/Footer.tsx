@@ -38,7 +38,7 @@ export function Footer() {
           </nav>
 
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/harish-pal-611982414/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
