@@ -2,12 +2,12 @@
 
 import { useState, useRef, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, Mail } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export function Contact() {
-  const [submitted, setSubmitted] = useState(false);
+  const [gmailUrl, setGmailUrl] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -27,10 +27,8 @@ export function Contact() {
       `---\nReply directly to this email to respond to ${name}.`
     );
 
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=harishji217@gmail.com&su=${subject}&body=${body}&replyto=${encodeURIComponent(email)}`;
-
-    window.open(gmailUrl, "_blank");
-    setSubmitted(true);
+    const url = `https://mail.google.com/mail/?view=cm&fs=1&to=harishji217@gmail.com&su=${subject}&body=${body}&replyto=${encodeURIComponent(email)}`;
+    setGmailUrl(url);
   };
 
   return (
@@ -49,12 +47,12 @@ export function Contact() {
 
         <Reveal delay={0.15} className="mt-12">
           <AnimatePresence mode="wait">
-            {submitted ? (
+            {gmailUrl ? (
               <motion.div
                 key="success"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-center rounded-2xl border border-accent/30 bg-card p-12 text-center"
+                className="flex flex-col items-center rounded-2xl border border-accent/30 bg-card p-12 text-center gap-6"
               >
                 <motion.div
                   initial={{ scale: 0 }}
@@ -63,12 +61,32 @@ export function Contact() {
                 >
                   <CheckCircle className="h-16 w-16 text-accent" />
                 </motion.div>
-                <h3 className="mt-6 font-display text-2xl font-bold text-white">
-                  Message Sent!
-                </h3>
-                <p className="mt-2 text-muted">
-                  I&apos;ll get back to you within 24 hours.
-                </p>
+
+                <div>
+                  <h3 className="font-display text-2xl font-bold text-white">
+                    Your message is ready!
+                  </h3>
+                  <p className="mt-2 text-muted">
+                    Click below to open Gmail and send it — your details are already filled in.
+                  </p>
+                </div>
+
+                <a
+                  href={gmailUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-accent px-8 py-3.5 text-sm font-semibold text-white shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all hover:shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:scale-105"
+                >
+                  <Mail className="h-4 w-4" />
+                  Open Gmail &amp; Send
+                </a>
+
+                <button
+                  onClick={() => setGmailUrl(null)}
+                  className="text-xs text-muted hover:text-white transition-colors underline underline-offset-2"
+                >
+                  Go back
+                </button>
               </motion.div>
             ) : (
               <motion.form
