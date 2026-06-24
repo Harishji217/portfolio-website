@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useRef, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
@@ -8,9 +8,28 @@ import { MagneticButton } from "@/components/ui/MagneticButton";
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const form = formRef.current;
+    if (!form) return;
+
+    const name = (form.elements.namedItem("name") as HTMLInputElement).value.trim();
+    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
+    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim();
+
+    const subject = encodeURIComponent(`New Project Enquiry from ${name}`);
+    const body = encodeURIComponent(
+      `Hi Harish,\n\nYou have a new message from your portfolio website.\n\n` +
+      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n` +
+      `---\nReply directly to this email to respond to ${name}.`
+    );
+
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=harishji217@gmail.com&su=${subject}&body=${body}&replyto=${encodeURIComponent(email)}`;
+
+    window.open(gmailUrl, "_blank");
     setSubmitted(true);
   };
 
@@ -54,16 +73,12 @@ export function Contact() {
             ) : (
               <motion.form
                 key="form"
+                ref={formRef}
                 onSubmit={handleSubmit}
                 className="glass-liquid glass-shine-container space-y-5 rounded-2xl p-8 shadow-2xl"
               >
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <Field label="Name" name="name" required />
-                  <Field label="Email" name="email" type="email" required />
-                </div>
-                <Field label="Company" name="company" />
-                <Field label="Project Type" name="projectType" />
-                <Field label="Budget" name="budget" />
+                <Field label="Name" name="name" required />
+                <Field label="Email" name="email" type="email" required />
                 <div>
                   <label
                     htmlFor="message"
@@ -74,9 +89,10 @@ export function Contact() {
                   <textarea
                     id="message"
                     name="message"
-                    rows={4}
+                    rows={5}
                     required
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none backdrop-blur-sm transition-all focus:border-accent/40 focus:bg-white/10"
+                    placeholder="Tell me about your project..."
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-muted/50 outline-none backdrop-blur-sm transition-all focus:border-accent/40 focus:bg-white/10"
                   />
                 </div>
                 <MagneticButton type="submit">
