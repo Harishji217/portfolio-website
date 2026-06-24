@@ -24,7 +24,7 @@ export const websites: WebsiteProject[] = [
     title: "Sparkle Home Cleaning",
     description:
       "A professional cleaning services website with transparent pricing, before/after showcases, and conversion-focused booking flows.",
-    url: "https://sparkle-home-cleaning-website-psi.vercel.app/",
+    url: "https://sparklehomecleaning.vercel.app/",
     tags: ["Landing Page", "Business", "Services"],
   },
 ];

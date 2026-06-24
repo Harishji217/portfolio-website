@@ -1,6 +1,6 @@
 "use client";
 
-import { Linkedin, Twitter } from "lucide-react";
+import { Linkedin, Twitter, Github } from "lucide-react";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -38,6 +38,16 @@ export function Footer() {
           </nav>
 
           <div className="flex items-center gap-6">
+            <a
+              href="https://github.com/Harishji217"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
+              aria-label="GitHub"
+            >
+              <Github className="h-5 w-5" />
+              GitHub
+            </a>
             <a
               href="https://www.linkedin.com/in/harish-pal-611982414/"
               target="_blank"
