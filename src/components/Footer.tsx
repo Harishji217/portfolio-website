@@ -1,6 +1,6 @@
 "use client";
 
-import { Linkedin } from "lucide-react";
+import { Linkedin, Twitter } from "lucide-react";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -37,16 +37,28 @@ export function Footer() {
             ))}
           </nav>
 
-          <a
-            href="https://www.linkedin.com/in/harish-pal-611982414/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
-            aria-label="LinkedIn"
-          >
-            <Linkedin className="h-5 w-5" />
-            LinkedIn
-          </a>
+          <div className="flex items-center gap-6">
+            <a
+              href="https://www.linkedin.com/in/harish-pal-611982414/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="h-5 w-5" />
+              LinkedIn
+            </a>
+            <a
+              href="https://x.com/Harish_Ji_217"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-accent"
+              aria-label="Twitter / X"
+            >
+              <Twitter className="h-5 w-5" />
+              Twitter
+            </a>
+          </div>
         </div>
 
         <div className="mt-12 border-t border-card-border pt-8 text-center text-xs text-muted">
